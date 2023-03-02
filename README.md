@@ -1,1 +1,1 @@
-This repository contains solutions to c-hello,world 
+0x06. C - More pointers, arrays and strings
