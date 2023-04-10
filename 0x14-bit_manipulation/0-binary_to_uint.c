@@ -1,46 +1,29 @@
-#include <stddef.h>   /* Added to define NULL */
-#include <stdlib.h>   /* Added to define malloc, free, and EXIT_FAILURE */
-#include <string.h>   /* Added to define strlen and strcpy */
+#include <stddef.h>
 
+/**
+ * binary_to_uint - converts a binary number to an unsigned int
+ * @b: pointer to a string of 0 and 1 chars
+ *
+ * Return: the converted number, or 0 if b is NULL or contains chars other than 0 or 1
+ */
 unsigned int binary_to_uint(const char *b)
 {
-    unsigned int result;
-    char *tmp_b;
-    const char *c;
+	unsigned int num = 0;
+	int i;
 
-    if (b == NULL)
-        return (0);
+	if (b == NULL)
+		return (0);
 
-    result = 0;
+	for (i = 0; b[i] != '\0'; i++)
+	{
+		if (b[i] != '0' && b[i] != '1')
+			return (0);
 
-    /* Fixed incompatible implicit declaration of malloc by including stdlib.h */
-    tmp_b = malloc(strlen(b) + 1);
-    if (tmp_b == NULL)
-        exit(EXIT_FAILURE);
+		num <<= 1;
+		if (b[i] == '1')
+			num += 1;
+	}
 
-    /* Fixed incompatible implicit declaration of strcpy by including string.h */
-    strcpy(tmp_b, b);
-
-    /* Fixed loop declaration error by compiling with -std=c99 */
-    for (c = tmp_b; *c != '\0'; ++c)
-    {
-        if (*c == '0')
-        {
-            result <<= 1;
-        }
-        else if (*c == '1')
-        {
-            result <<= 1;
-            result |= 1;
-        }
-        else
-        {
-            free(tmp_b);
-            return (0);
-        }
-    }
-
-    free(tmp_b);
-    return (result);
+	return (num);
 }
 
